@@ -1,0 +1,291 @@
+\documentclass[11pt]{article}
+\title{Math 20D: Ordinary Differential Equations}
+\author{Suhas Arehalli}
+
+\usepackage[margin=1.0in]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\newcount\colveccount
+\newcommand*\colvec[1]{
+    \global\colveccount#1
+    \begin{pmatrix}
+    \colvecnext
+    }
+    \def\colvecnext#1{
+    #1
+    \global\advance\colveccount-1
+    \ifnum\colveccount>0
+    \\
+    \expandafter\colvecnext
+    \else
+    \end{pmatrix}
+    \fi
+}
+
+\begin{document}
+\maketitle
+
+\section{1st Order ODEs}
+\subsection{Integrating Factor}
+\subsubsection{Given}
+A 1st order linear differential equation of the form
+    \[ \frac{dy}{dt} + p(t)y = g(t) \]
+\subsubsection{Technique}
+Begin by calculating the integrating factor (feel free to ignore the constant of integration - it's 
+irrelevant),
+    \[ \mu (t) = e^{\int p(t)dt} \]
+Then multiply both sides by it
+\begin{align*}
+    \frac{dy}{dt} e^{\int p(t)dt} + p(t)e^{\int p(t)}y &= g(t)e^{\int p(t)}  \\
+    \frac{dy}{dt} \mu (t) + \frac{d\mu}{dt}y &= g(t)\mu (t) 
+\end{align*}
+Note that the right-hand side is just $\frac{d}{dt}[y \mu (t)]$
+\begin{align*}
+    \frac{d}{dt}[y \mu (t)] &= g(t)\mu (t) \\
+    y \mu(t) &= \int g(t)\mu (t)dt \\
+    y &= \frac{\int g(t) \mu (t)dt}{\mu (t)}
+\end{align*}
+\subsubsection{Example}
+\subsection{Separable Equations}
+\subsubsection{Given}
+A separable 1st order differential equation of the form
+    \[ M(x) + N(y)\frac{dy}{dx} = 0 \]
+\subsubsection{Technique}
+Separate your variables
+    \[ N(y)\frac{dy}{dx} = M(x) \]
+And integrate
+    \[ \int N(y)dy = \int M(x)dx \]
+And then solve for y.
+\subsubsection{Example}
+\subsection{Autonomous Equations}
+\subsection{Exact Equations}
+\subsubsection{Given}
+A 1st order differential equation of the form
+    \[ M(x,y) + N(x,y)\frac{dy}{dx} = 0 \]
+Such that
+\begin{align*}
+    \frac{d}{dy}[M(x,y)] = \frac{d}{dx}[ N(x,y)]
+\end{align*}
+\subsubsection{Technique}
+Calculate $\psi (x,y)$ from
+\begin{align*}
+    \psi (x,y) = \int M(x,y)dx + C_1(y) \\
+    \psi (x,y) = \int N(x,y)dy + C_2(x) 
+\end{align*}
+There should be one function that satisfies both of these equations with varying functions $C_1(x)$ and 
+$C_2(y)$: That is $\psi (x,y)$. Then we can rewrite the differential equation as
+\begin{align*}
+\frac{d\psi}{dx} + \frac{d\psi}{dy}\frac{dy}{dx} &= 0 \\
+\frac{d}{dx}[\psi (x,y)] &= 0\\
+\psi (x,y) &= C
+\end{align*}
+Which we can proceed to algebraically solve for y.
+\subsubsection{Example}
+
+\section{Second Order ODEs}
+\subsection{The Wronskian}
+In first order ODEs, we know there is only one solution to each Differential Equation (plus all of it's
+scalar multiples). With 2nd Order ODEs, we expect 2 linearly independent solutions. How do we determine
+if these solutions are independent? Buy calculating the Wronskian:
+\[
+    W = det\begin{bmatrix}
+            y_1  & y_2 \\  
+            y_1' & y_2'\\
+            \end{bmatrix}
+\]
+If $ W \neq 0 $, then the 2 solutions are linearly independent enough. 
+???END
+\subsection{Characteristic Equation }
+\subsubsection{Given}
+A homogenous 2nd order differential equation of the form 
+\[ y'' + ay' + b = 0 \]
+\subsubsection{Technique}
+Assume our solution is of the form $y = e^{rt}$. Substituting it in gives us
+\begin{align*}
+    r^2e^{rt} + are^{rt} + be^{rt} &= 0 \\
+    (r^2 + ar + b)e^{rt} &= 0
+\end{align*}
+However, since $e^{rt} \neq 0, \forall r \in \mathbb{R}$, we can divide by 
+$e^{rt}$ and obtain the characteristic equation
+    \[ r^2 + ar + b = 0 \]
+and solve for the $r_1, r_2$ that satisfy the equation (the roots of the polynomial on the LHS). Depending
+on the kind of roots obtained, follow one of the techniques below:
+\subsubsection{Technique: Real and Unique Roots}
+In this case, your solution is simply
+    \[ y = C_1e^{r_1t} + C_2e^{r_2t} \]
+Why? If you followed along above, you see that we assumed that solutions would be of the form $y = e^{rt}$.
+However, by the Law of Superposition, since we have 2 solutions, every linear combination of the solutions
+is also a solution.
+\subsubsection{Technique: Complex Roots}
+Here we can say that out solution is simply the same as above. However, we don't care about imaginary 
+solutions: The DE was real-valued, so so should our solution. Thus, we will inspect one solution (which
+is complete, as we could show with the Wronskian) and remove the imaginary terms. Consider
+\begin{align*}
+    y = Ce^{rt} &= Ce^{(a+bi)t} \\
+    &= Ce^{at}e^{(bt)i} \\
+    &= Ce^{at}(cos(bt) + isin(bt)) \\
+    &= (C_1 + C_2i)e^{at}(cos(bt) + isin(bt)) \\
+    &= e^{at}(C_1cos(bt) - C_2sin(bt)) + ie^{at}(C_1sin(bt) + C_2cos(bt))\\
+\end{align*}
+If we swap the sign on $C_2$ and drop the imaginary part, we obtain our real solution
+\[ y = e^{at}(C_1cos(bt) + C_2sin(bt)) \]
+\subsubsection{Technique: Repeated Roots}
+If we only have a single root, we can simply say the answer is
+\[ y = C_1e^{rt} + C_2te^{rt} \]
+Why? This is a special case of the next technique, Reduction of Order.
+\subsubsection{Example}
+\subsection{Reduction of Order}
+\subsubsection{Given}
+A 2nd order linear DE of the form
+    \[ y'' + p(t)y' + q(t)y = 0 \]
+and a single solution $y_1(t)$.
+\subsubsection{Technique}
+Assume that
+    \[ y_2(t) = v(t)y_1(t) \]
+for some function $v(t)$. Our goal is to find this function $v(t)$, and thus find $y_2(t)$. Now
+simply substitute into the original equation, first finding that
+\begin{align*}
+    y_2(t)   &= v(t)y_1(t) \\
+    y_2'(t)  &= v'(t)y_1(t) + v(t)y_1'(t) \\
+    y_2''(t) &= v''(t)y_1(t) + 2v'(t)y_1'(t) + v(t)y_1''(t)
+\end{align*}
+And then substiting fully, getting
+\begin{align*}
+    \left[v''(t)y_1(t) + 2v'(t)y_1'(t) + v(t)y_1''(t)\right] + p(t)\left[v'(t)y_1(t) + v(t)y_1'(t)\right] + q(t)\left[v(t)y_1(t)\right]  = 0 \\
+    \left[v''(t)y_1(t) + 2v'(t)y_1'(t) \right] + p(t)\left[v'(t)y_1(t)\right] + v(t)\left[y_2''(t) + p(t)y_1'(t) + q(t)y_1(t)\right]  = 0 \\
+    \left[v''(t)y_1(t) + 2v'(t)y_1'(t) \right] + p(t)\left[v'(t)y_1(t)\right] = 0 \\
+\end{align*}
+At this point, since all terms with v(t) were eliminated, we can define a new variable $w(t) = v'(t)$. Now
+We're left with
+    \[ \left[w'(t)y_1(t) + 2w(t)y_1'(t) \right] + p(t)\left[w(t)y_1(t)\right] = 0 \]
+And since $y_1(t)$ is known, we have a 1st order DE that we can solve using the previous methods, finding
+$w = v'(t)$, from which we can find $v(t) = \int w(t)dt$, which in turn lets us find $y_2(t) = v(t)y_1(t)$.
+\subsubsection{Example}
+\subsection{Mathod of Undetermined Coefficients}
+\subsubsection{Given}
+A second order nonhomogenous ODE of the form
+    \[ y'' + p(t)y' + q(t)y = g(t) \]
+with a g(t) that is a sum/product of sin/cos, polynomials, or exponentials,
+plus homogenous solutions $y_1(t)$ and $y_2(t)$ that satisfy
+    \[ y'' + p(t)y' + q(t)y = 0 \]
+We could obtain these with the other homogenous 2nd order techniques discussed above. 
+\subsubsection{Technique}
+We need to add an additional term, $Y(t)$ to our homogenous solution to account for the function $g(t)$
+on the RHS. To find $Y(t)$, first, guess a generalized version of $g(t)$: Replace an nth order polynomial
+with $\sum_{i=0}^n A_it^i$, sine or cosine with $Acos(Bt) + Csin(Dt)$, and any exponential with
+$Ae^{Bt}$.
+
+Then find $Y'(t), Y''(t)$ and substitute into the differential equation. The equate all of the coefficients
+of equal terms, obtaining a system of linear equations which you can proceed to solve for the undetermined
+coefficients you got from "generalizing" when guessing $Y(t)$. Then our final solution will be
+    \[ y = y_1(t) + y_2(t) + Y(t) \]
+To recap:
+\begin{enumerate}
+    \item Construct a guess Y(t)
+    \item Differentiate Y(t) and substitute into the DE
+    \item Equate coefficients of similar terms, getting a system of linear equations for the coefficients
+    \item Solve the system to get the coefficients
+    \item Write the final solution
+\end{enumerate}
+\subsubsection{Example}
+\subsection{Variation of Parameters}
+\subsubsection{Given}
+A second order nonhomogenous ODE of the form
+    \[ y'' + p(t)y' + q(t)y = g(t) \]
+with homogenous solutions $y_1(t)$ and $y_2(t)$ that satisfy
+    \[ y'' + p(t)y' + q(t)y = g(t) \]
+We could obtain these with the other homogenous 2nd order techniques discussed above. 
+\subsubsection{Technique}
+Again we begin by making an assumption about $Y(t)$: 
+    \[ Y(t) = u_1(t)y_1(t) + u_2(t)y_2(t) \]
+From this, we again differentiate
+\begin{align*}
+    Y(t) &= u_1(t)y_1(t) + u_2(t)y_2(t) \\
+    Y'(t) &= u_1(t)y_1'(t) + u_1'(t)y_1(t) + u_2(t)y_2'(t) + u_2'(t)y_2(t) \\
+\end{align*}
+And now, since that looks disgusting, and because we have the freedom to, let's impose an additional constraint:
+\begin{equation}
+u_1'(t)y_1(t) + u_2'(t)y_1(t) = 0  \\
+\end{equation}
+which gets us
+\begin{align*}
+    Y'(t) &= u_1(t)y_1'(t) + u_2(t)y_2'(t)\\
+    Y''(t) &= u_1'(t)y_1'(t) + u_1(t)y_1''(t) + u_2'(t)y_2'(t) + u_2(t)y_2''(t) \\
+\end{align*}
+Now substitute into the DE, getting
+\begin{eqnarray*}
+\begin{split}
+    [ u_1'(t)y_1'(t) + u_1(t)y_1''(t) + u_2'(t)&y_2'(t) + u_2(t)y_2''(t)] \\
+    + p(t)[ u_1(t)y_1'(t) &+ u_2(t)y_2'(t)]  \\
+    + &q(t)\left[ u_1(t)y_1(t) + u_2(t)y_2(t) \right] = g(t)
+\end{split}
+\end{eqnarray*}
+\begin{eqnarray*}
+\begin{split}
+   u_1(t)[y_1''(t) + p(t)y_1'(t) + q(t)y_1(t)&] \\
+   + u_2(t)[y_2''(t) + p(t)&y_2'(t) + q(t)y_2(t)] \\
+   &+ u_1'(t)y_1'(t) + u_2'(t)y_2'(t) = g(t)
+\end{split}
+\end{eqnarray*}
+\begin{equation}
+    u_1'(t)y_1'(t) + u_2'(t)y_2'(t) = g(t) \\
+\end{equation}
+This paired with (1) gives us a system of equations we can use to solve for $u_1'(t)$ and $u_2'(t)$, 
+giving us
+\begin{align*}
+    u_1'(t) &= -\frac{y_2(t)g(t)}{W(y_1, y_2)(t)} \\
+    u_2'(t) &= \frac{y_1(t)g(t)}{W(y_1, y_2)(t)}
+\end{align*}
+Which, of course leads to
+\begin{align}
+    u_1(t) &= -\int \frac{y_2(t)g(t)}{W(y_1, y_2)(t)} \\
+    u_2(t) &= \int \frac{y_1(t)g(t)}{W(y_1, y_2)(t)}
+\end{align}
+As part of 
+\[ Y(t) = u_1(t)y_1(t) + u_2(t)y_2(t) \]
+Which gives us our final answer
+\[ y = y_1(t) + y_2(t) + Y(t) \]
+For normal use of this technique:
+\begin{enumerate}
+    \item Find $u_1(t)$ and $u_2(t)$ using equations (3) and (4)
+    \item Write the final solution
+    \end{enumerate}
+Not actually that bad.
+\section{Systems of ODEs}
+\subsection{Characteristic Equation}
+\subsubsection{Given}
+Given a system of $n$ linear ODEs of order $n$ with coefficients that can be written in the from
+\[ x' = Ax \]
+With A being an $n$ x $n$ matrix and $x$ being a vector-valued functions $x: \mathbb{R} 
+\rightarrow \mathbb{R}^n$
+\subsubsection{Technique}
+Assume that solutions are of the form
+\[ y = \xi e^{\lambda t} \]
+Then we get
+\begin{align*}
+    \lambda \xi e^{\lambda t} &= A \xi e^{\lambda t} \\
+    \lambda \xi &= A \xi  
+\end{align*}
+Thus we discover that $\xi$ must be an eigenvector of $A$ with eigenvalue $\lambda$. To find the
+Eigenvalue, we must first find the roots of the characteristic polynomial of $A$, since
+\begin{align*}
+    A \xi - \lambda \xi &= 0 \\
+    (A - \lambda I) \xi &= 0 
+\end{align*}
+And in order for this system to have a solution for $\xi$ other than the 0 vector, we must have that
+\begin{align*}
+    det(A - \lambda I) &= 0 
+\end{align*}
+Depending on the $\lambda$'s we find, we can use different techniques to find the solution. Note that
+these directly parallel the 2nd order techniques discussed. If we formulate a 2nd order equation
+\begin{equation*}
+    y'' + ay' + by = 0
+\end{equation*}
+as 
+\begin{eqnarray}
+    y_1' = y_2 \\
+    y_2' = -ay_2 - by_1
+\end{eqnarray}
+\subsubsection{Technique: Real and Unique Roots)}
+    
+\end{document}

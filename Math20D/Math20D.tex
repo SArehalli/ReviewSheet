@@ -1,0 +1,499 @@
+\documentclass[11pt]{article}
+\title{Math 20D: Ordinary Differential Equations}
+\author{Suhas Arehalli}
+
+\usepackage[margin=1.0in]{geometry}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathrsfs}
+\newcount\colveccount
+\newcommand*\colvec[1]{
+    \global\colveccount#1
+    \begin{pmatrix}
+    \colvecnext
+    }
+    \def\colvecnext#1{
+    #1
+    \global\advance\colveccount-1
+    \ifnum\colveccount>0
+    \\
+    \expandafter\colvecnext
+    \else
+    \end{pmatrix}
+    \fi
+}
+
+\begin{document}
+\maketitle
+
+\section{1st Order ODEs}
+\subsection{Integrating Factor}
+\subsubsection{Given}
+A 1st order linear differential equation of the form
+    \[ \frac{dy}{dt} + p(t)y = g(t) \]
+\subsubsection{Technique}
+Begin by calculating the integrating factor (feel free to ignore the constant of integration - it's 
+irrelevant),
+    \[ \mu (t) = e^{\int p(t)dt} \]
+Then multiply both sides by it
+\begin{align*}
+    \frac{dy}{dt} e^{\int p(t)dt} + p(t)e^{\int p(t)}y &= g(t)e^{\int p(t)}  \\
+    \frac{dy}{dt} \mu (t) + \frac{d\mu}{dt}y &= g(t)\mu (t) 
+\end{align*}
+Note that the right-hand side is just $\frac{d}{dt}[y \mu (t)]$
+\begin{align*}
+    \frac{d}{dt}[y \mu (t)] &= g(t)\mu (t) \\
+    y \mu(t) &= \int g(t)\mu (t)dt \\
+    y &= \frac{\int g(t) \mu (t)dt}{\mu (t)}
+\end{align*}
+\subsection{Separable Equations}
+\subsubsection{Given}
+A separable 1st order differential equation of the form
+    \[ M(x) + N(y)\frac{dy}{dx} = 0 \]
+\subsubsection{Technique}
+Separate your variables
+    \[ N(y)\frac{dy}{dx} = M(x) \]
+And integrate
+    \[ \int N(y)dy = \int M(x)dx \]
+And then solve for y.
+\subsection{Autonomous Equations}
+\subsection{Exact Equations}
+\subsubsection{Given}
+A 1st order differential equation of the form
+    \[ M(x,y) + N(x,y)\frac{dy}{dx} = 0 \]
+Such that
+\begin{align*}
+    \frac{d}{dy}[M(x,y)] = \frac{d}{dx}[ N(x,y)]
+\end{align*}
+\subsubsection{Technique}
+Calculate $\psi (x,y)$ from
+\begin{align*}
+    \psi (x,y) = \int M(x,y)dx + C_1(y) \\
+    \psi (x,y) = \int N(x,y)dy + C_2(x) 
+\end{align*}
+There should be one function that satisfies both of these equations with varying functions $C_1(x)$ and 
+$C_2(y)$: That is $\psi (x,y)$. Then we can rewrite the differential equation as
+\begin{align*}
+\frac{d\psi}{dx} + \frac{d\psi}{dy}\frac{dy}{dx} &= 0 \\
+\frac{d}{dx}[\psi (x,y)] &= 0\\
+\psi (x,y) &= C
+\end{align*}
+Which we can proceed to algebraically solve for y.
+
+\section{Second Order ODEs}
+\subsection{The Wronskian}
+In first order ODEs, we know there is only one solution to each Differential Equation (plus all of it's
+scalar multiples). With 2nd Order ODEs, we expect 2 linearly independent solutions. How do we determine
+if these solutions are independent? Buy calculating the Wronskian:
+\[
+    W = det\begin{bmatrix}
+            y_1  & y_2 \\  
+            y_1' & y_2'\\
+            \end{bmatrix}
+\]
+If $ W \neq 0 $, then the 2 solutions are linearly independent enough. 
+???END
+\subsection{Characteristic Equation }
+\subsubsection{Given}
+A homogenous 2nd order differential equation of the form 
+\[ y'' + ay' + b = 0 \]
+\subsubsection{Technique}
+Assume our solution is of the form $y = e^{rt}$. Substituting it in gives us
+\begin{align*}
+    r^2e^{rt} + are^{rt} + be^{rt} &= 0 \\
+    (r^2 + ar + b)e^{rt} &= 0
+\end{align*}
+However, since $e^{rt} \neq 0, \forall r \in \mathbb{R}$, we can divide by 
+$e^{rt}$ and obtain the characteristic equation
+    \[ r^2 + ar + b = 0 \]
+and solve for the $r_1, r_2$ that satisfy the equation (the roots of the polynomial on the LHS). Depending
+on the kind of roots obtained, follow one of the techniques below:
+\subsubsection{Technique: Real and Unique Roots}
+In this case, your solution is simply
+    \[ y = C_1e^{r_1t} + C_2e^{r_2t} \]
+Why? If you followed along above, you see that we assumed that solutions would be of the form $y = e^{rt}$.
+However, by the Law of Superposition, since we have 2 solutions, every linear combination of the solutions
+is also a solution.
+\subsubsection{Technique: Complex Roots}
+Here we can say that out solution is simply the same as above. However, we don't care about imaginary 
+solutions: The DE was real-valued, so so should our solution. Thus, we will inspect one solution (which
+is complete, as we could show with the Wronskian) and remove the imaginary terms. Consider
+\begin{align*}
+    y = Ce^{rt} &= Ce^{(a+bi)t} \\
+    &= Ce^{at}e^{(bt)i} \\
+    &= Ce^{at}(cos(bt) + isin(bt)) \\
+    &= (C_1 + C_2i)e^{at}(cos(bt) + isin(bt)) \\
+    &= e^{at}(C_1cos(bt) - C_2sin(bt)) + ie^{at}(C_1sin(bt) + C_2cos(bt))\\
+\end{align*}
+If we swap the sign on $C_2$ and drop the imaginary part, we obtain our real solution
+\[ y = e^{at}(C_1cos(bt) + C_2sin(bt)) \]
+\subsubsection{Technique: Repeated Roots}
+If we only have a single root, we can simply say the answer is
+\[ y = C_1e^{rt} + C_2te^{rt} \]
+Why? This is a special case of the next technique, Reduction of Order.
+\subsection{Reduction of Order}
+\subsubsection{Given}
+A 2nd order linear DE of the form
+    \[ y'' + p(t)y' + q(t)y = 0 \]
+and a single solution $y_1(t)$.
+\subsubsection{Technique}
+Assume that
+    \[ y_2(t) = v(t)y_1(t) \]
+for some function $v(t)$. Our goal is to find this function $v(t)$, and thus find $y_2(t)$. Now
+simply substitute into the original equation, first finding that
+\begin{align*}
+    y_2(t)   &= v(t)y_1(t) \\
+    y_2'(t)  &= v'(t)y_1(t) + v(t)y_1'(t) \\
+    y_2''(t) &= v''(t)y_1(t) + 2v'(t)y_1'(t) + v(t)y_1''(t)
+\end{align*}
+And then substiting fully, getting
+\begin{align*}
+    \left[v''(t)y_1(t) + 2v'(t)y_1'(t) + v(t)y_1''(t)\right] + p(t)\left[v'(t)y_1(t) + v(t)y_1'(t)\right] + q(t)\left[v(t)y_1(t)\right]  = 0 \\
+    \left[v''(t)y_1(t) + 2v'(t)y_1'(t) \right] + p(t)\left[v'(t)y_1(t)\right] + v(t)\left[y_2''(t) + p(t)y_1'(t) + q(t)y_1(t)\right]  = 0 \\
+    \left[v''(t)y_1(t) + 2v'(t)y_1'(t) \right] + p(t)\left[v'(t)y_1(t)\right] = 0 \\
+\end{align*}
+At this point, since all terms with v(t) were eliminated, we can define a new variable $w(t) = v'(t)$. Now
+We're left with
+    \[ \left[w'(t)y_1(t) + 2w(t)y_1'(t) \right] + p(t)\left[w(t)y_1(t)\right] = 0 \]
+And since $y_1(t)$ is known, we have a 1st order DE that we can solve using the previous methods, finding
+$w = v'(t)$, from which we can find $v(t) = \int w(t)dt$, which in turn lets us find $y_2(t) = v(t)y_1(t)$.
+\subsection{Mathod of Undetermined Coefficients}
+\subsubsection{Given}
+A second order nonhomogenous ODE of the form
+    \[ y'' + p(t)y' + q(t)y = g(t) \]
+with a g(t) that is a sum/product of sin/cos, polynomials, or exponentials,
+plus homogenous solutions $y_1(t)$ and $y_2(t)$ that satisfy
+    \[ y'' + p(t)y' + q(t)y = 0 \]
+We could obtain these with the other homogenous 2nd order techniques discussed above. 
+\subsubsection{Technique}
+We need to add an additional term, $Y(t)$ to our homogenous solution to account for the function $g(t)$
+on the RHS. To find $Y(t)$, first, guess a generalized version of $g(t)$: Replace an nth order polynomial
+with $\sum_{i=0}^n A_it^i$, sine or cosine with $Acos(Bt) + Csin(Dt)$, and any exponential with
+$Ae^{Bt}$.
+
+Then find $Y'(t), Y''(t)$ and substitute into the differential equation. The equate all of the coefficients
+of equal terms, obtaining a system of linear equations which you can proceed to solve for the undetermined
+coefficients you got from "generalizing" when guessing $Y(t)$. Then our final solution will be
+    \[ y = y_1(t) + y_2(t) + Y(t) \]
+Sometimes this will not work. In this case, we can casually multiply any $Ae^{Bt}$ terms by $t$ and try
+again, and if that doesn't work repeat. Don't ask me why this works. \textbf{TIP}: If something of the 
+form $Ae^{Bt}$ appears in the homogenous solution, multiply by t. If something of the form $Ate^{Bt}$ 
+appears in the homogenous solution, multiply by t again. 
+To recap:
+\begin{enumerate}
+    \item Construct a guess Y(t)
+    \item Differentiate Y(t) and substitute into the DE
+    \item Equate coefficients of similar terms, getting a system of linear equations for the coefficients
+    \item Solve the system to get the coefficients
+    \item If the system has no solutions, multiply $Ae^{Bt}$ terms by t and go back to 2.
+    \item Write the final solution
+\end{enumerate}
+\subsection{Variation of Parameters}
+\subsubsection{Given}
+A second order nonhomogenous ODE of the form
+    \[ y'' + p(t)y' + q(t)y = g(t) \]
+with homogenous solutions $y_1(t)$ and $y_2(t)$ that satisfy
+    \[ y'' + p(t)y' + q(t)y = g(t) \]
+We could obtain these with the other homogenous 2nd order techniques discussed above. 
+\subsubsection{Technique}
+Again we begin by making an assumption about $Y(t)$: 
+    \[ Y(t) = u_1(t)y_1(t) + u_2(t)y_2(t) \]
+From this, we again differentiate
+\begin{align*}
+    Y(t) &= u_1(t)y_1(t) + u_2(t)y_2(t) \\
+    Y'(t) &= u_1(t)y_1'(t) + u_1'(t)y_1(t) + u_2(t)y_2'(t) + u_2'(t)y_2(t) \\
+\end{align*}
+And now, since that looks disgusting, and because we have the freedom to, let's impose an additional constraint:
+\begin{equation}
+u_1'(t)y_1(t) + u_2'(t)y_1(t) = 0  \\
+\end{equation}
+which gets us
+\begin{align*}
+    Y'(t) &= u_1(t)y_1'(t) + u_2(t)y_2'(t)\\
+    Y''(t) &= u_1'(t)y_1'(t) + u_1(t)y_1''(t) + u_2'(t)y_2'(t) + u_2(t)y_2''(t) \\
+\end{align*}
+Now substitute into the DE, getting
+\begin{eqnarray*}
+\begin{split}
+    [ u_1'(t)y_1'(t) + u_1(t)y_1''(t) + u_2'(t)&y_2'(t) + u_2(t)y_2''(t)] \\
+    + p(t)[ u_1(t)y_1'(t) &+ u_2(t)y_2'(t)]  \\
+    + &q(t)\left[ u_1(t)y_1(t) + u_2(t)y_2(t) \right] = g(t)
+\end{split}
+\end{eqnarray*}
+\begin{eqnarray*}
+\begin{split}
+   u_1(t)[y_1''(t) + p(t)y_1'(t) + q(t)y_1(t)&] \\
+   + u_2(t)[y_2''(t) + p(t)&y_2'(t) + q(t)y_2(t)] \\
+   &+ u_1'(t)y_1'(t) + u_2'(t)y_2'(t) = g(t)
+\end{split}
+\end{eqnarray*}
+\begin{equation}
+    u_1'(t)y_1'(t) + u_2'(t)y_2'(t) = g(t) \\
+\end{equation}
+This paired with (1) gives us a system of equations we can use to solve for $u_1'(t)$ and $u_2'(t)$, 
+giving us
+\begin{align*}
+    u_1'(t) &= -\frac{y_2(t)g(t)}{W(y_1, y_2)(t)} \\
+    u_2'(t) &= \frac{y_1(t)g(t)}{W(y_1, y_2)(t)}
+\end{align*}
+Which, of course leads to
+\begin{align}
+    u_1(t) &= -\int \frac{y_2(t)g(t)}{W(y_1, y_2)(t)} \\
+    u_2(t) &= \int \frac{y_1(t)g(t)}{W(y_1, y_2)(t)}
+\end{align}
+As part of 
+\[ Y(t) = u_1(t)y_1(t) + u_2(t)y_2(t) \]
+Which gives us our final answer
+\[ y = y_1(t) + y_2(t) + Y(t) \]
+For normal use of this technique:
+\begin{enumerate}
+    \item Find $u_1(t)$ and $u_2(t)$ using equations (3) and (4)
+    \item Write the final solution
+    \end{enumerate}
+Not actually that bad.
+\section{Systems of ODEs}
+\subsection{Characteristic Equation}
+\subsubsection{Given}
+Given a system of $n$ linear ODEs of order $n$ with coefficients that can be written in the from
+\[ x' = Ax \]
+With A being an $n$ x $n$ matrix and $x$ being a vector-valued functions $x: \mathbb{R} 
+\rightarrow \mathbb{R}^n$
+\subsubsection{Technique}
+Assume that solutions are of the form
+\[ y = \xi e^{\lambda t} \]
+Then we get
+\begin{align*}
+    \lambda \xi e^{\lambda t} &= A \xi e^{\lambda t} \\
+    \lambda \xi &= A \xi  
+\end{align*}
+Thus we discover that $\xi$ must be an eigenvector of $A$ with eigenvalue $\lambda$. To find the
+Eigenvalue, we must first find the roots of the characteristic polynomial of $A$, since
+\begin{align*}
+    A \xi - \lambda \xi &= 0 \\
+    (A - \lambda I) \xi &= 0 
+\end{align*}
+And in order for this system to have a solution for $\xi$ other than the 0 vector, we must have that
+\begin{align*}
+    det(A - \lambda I) &= 0 
+\end{align*}
+Depending on the $\lambda$'s we find, we can use different techniques to find the individual solutions 
+for each eigenvalue, and use the Principle of Superposition (the linear combination of all solutions is
+the general solution) to give the general solution.
+
+Note that these directly parallel the 2nd order techniques discussed. If we formulate a 2nd order 
+equation
+\begin{equation*}
+    y'' + ay' + by = 0
+\end{equation*}
+as 
+\begin{align*}
+    x_1' &= x_2 \\
+    x_2' &= -ax_2 - bx_1
+\end{align*}
+With $y = x_1$.
+\subsubsection{Technique: Real and Unique Eigenvalues}
+The solution is simply
+\[ x(t) = \sum_{i = 1}^n C_i \xi_i e^{\lambda_i t}  \]
+for each real eigenvalue $\lambda_i$ and associated eigenvector $\xi_i$.
+\subsection{Technique: Imaginary Eigenvalues}
+For reasons similar to the 2nd order ODEs, we'll drop the imaginary portion. Let $\lambda = a + bi$
+be one of the conjugate pair of imaginary eigenvalues and $\xi$ be the corresponding eigenvector. Their 
+\begin{align*}
+    x(t) &= C\xi e^{(a + bi)t} \\
+         &= C\xi e^{at} (cos(bt) + isin(bt)) \\
+        \dots \\
+         &= y_1 + iy_2 
+\end{align*}
+Since $\xi$ can have imaginary parts, you must multiply through and separate imaginary and real
+parts. Then, since the coefficient $C \in \mathbb{C}$, you may take both the real and imaginary parts
+of this solution as your $x_1$ and $x_2$. 
+
+Then your solution will be
+
+\[ x(t) = C_1y_1 + C_2y_2 \]
+
+\subsubsection{Technique: Repeated Eigenvalues}
+If there is a repeated eigenvalue $\lambda$ with corresponding eigenvector $\xi$, it is tempting to 
+follow our logic from 2nd order DEs and simply multiply our solution by t. However, that is \textbf{wrong}.
+Instead, we must assume our second solution is of the form 
+\[ x_2(t) = \xi te^{\lambda t} + \eta e^{\lambda t} \]
+With vector $\eta$. Derive, getting
+\[ x_2'(t) = (\lambda t + 1)\xi e^{\lambda t} + \lambda \eta e^{\lambda t} \]
+And substitute into our system
+\begin{align*}
+    x' &= Ax \\ 
+    (\lambda t + 1)\xi e^{\lambda t} + \lambda \eta e^{\lambda t} &= A(t\xi e^{\lambda t} + \eta e^{\lambda t})  \\
+    \lambda t \xi e^{\lambda t} + \xi e^{\lambda t} + \lambda \eta e^{\lambda t} &= \lambda \xi t e^{\lambda t} + A\eta e^{\lambda t} \\
+     \xi e^{\lambda t} + \lambda \eta e^{\lambda t} &= A\eta e^{\lambda t} \\
+     \xi  + \lambda \eta &= A\eta  \\
+    (A - \lambda I)\eta &= \xi
+\end{align*}
+This will create a linear system, which we can solve for $\eta$. Then we have that
+\begin{equation}
+x(t) = C_1\xi e^{\lambda t} + C_2(\xi te^{\lambda t} + \eta e^{\lambda t}) 
+\end{equation}
+To summarize:
+\begin{enumerate}
+    \item Find eigenvalues of the matrix A, and determine that one of the roots is repeated.
+    \item Solve $(A - \lambda I)\eta = \xi$ to find eta.
+    \item The solution for that repeated eigenvalue is as given in (5).
+\end{enumerate}
+\subsection{Undetermined Coefficents}
+\subsubsection{Given}
+A Nonhomogenous 2nd order system of ODEs of the form
+\begin{align*}
+    x' = At + g(t) \\
+\end{align*}
+And a homogenous solution, $x_h(t)$ presumably obtained using the characteristic equation method above.
+
+\subsubsection{Technique}
+Using the same generalization techniques as for 2nd order ODEs, craft a guess for an additional
+term we'll call $v(t)$, except instead of multiplying a term by t, add the higher order term. e.g.
+\[ ae^{Bt} \rightarrow ate^{Bt} + be^{Bt} \]
+
+The process is then pretty much the same:
+\begin{enumerate}
+    \item Derive and substitute into the original equation
+    \item Equate coeffients of similar terms to get systems of systems of equations, 
+          some corresponding to eigenvalue equations, others solvable by row reduction, 
+          and so on. 
+    \item Solve them. If you decide to go down this painful road and the system of systems is
+          unsolvable, then go back and do the "add a higher order" thing mentioned above. The
+          tips on that above are relevant here too.
+    \item Now you know $v(t)$, so write the final solution: $x(t) = x_h(t) + v(t)$
+\end{enumerate}
+\subsection{Diagonalization}
+\subsubsection{Given}
+A system of ODEs of the form
+\[ x' = Ax + g(t) \]
+
+No homogenous solutions needed!
+
+\subsubsection{Technique}
+Remember that given a matrix $A$ and an eigenbasis $\{\xi_1, ..., \xi_n\}$, we can construct a
+normalized Change of Basis matrix $T = \left[ \bar{\xi_1}, ..., \bar{\xi_n} \right]$, with 
+$\bar{\xi_i} = \frac{\xi_i}{|\xi_i|}$, or a normalized $\xi_i$. This matrix has the following 
+properties:
+\begin{align}
+    T^{-1}AT &= D = \begin{bmatrix} 
+                        \lambda_1 & 0 & \dots & \\
+                        0 & \lambda_2 & \dots \\
+                        \dots & \dots & \dots \\
+                    \end{bmatrix} \\
+                    T^{-1} &= T^T
+\end{align}
+(6) from being a COB matrix to an eigenbasis (a transformation called diagonalization), and (7) since
+we normalized it. 
+
+Given these properties, we can reduce a system of ODEs into a series of 1st order DEs. How? First
+let 
+    \[ x = Ty \] 
+For some $y$. We then get
+    \[ Ty' = ATy + g(t) \]
+Then we simply multiply on the left (because matrix multiplication order matters!) by $T^{-1} = T^T$
+    \[ y = T^{-1}ATy + T^{T}g(t) \]
+And, using (6) we get
+    \[ y = Dy + T^{T}g(t) \]
+Now, since $D$ is diagonal, we have a series of 1st order ODEs! Split the one matrix equation into
+it's component system, and the $i$th equation/row will only have 
+    \[y_i' = \lambda_i y_i + \left[ T^Tg(t) \right]_i \]  
+Using a method like the Integrating factor to solve each of these, we can obtain $y$, and can now reverse
+the transformation to get back the solution to our first equation, $x$. Our final solution will be
+\begin{align*}
+    x(t) = Ty
+\end{align*}
+To summarize
+\begin{enumerate}
+    \item Find the eigenvectors and the eigenbasis for $A$ (solving the characteristic equation and doing 
+          row reduction is the simplest method)
+    \item Construct $T$ by normalizing each eigenvector and making them the columns of $T$.
+    \item Let $x = Ty$, and multiply to the left by $T^T = T^{-1}$. Remember $T^{-1}AT = D$, the matrix
+          with $D_{i,i} = \lambda_i$ and all else $0$. 
+    \item Separate this into $n$ 1st order linear equations with the form 
+          $y_i' = \lambda_i y_i + \left[ T^Tg(t) \right]_i $. Solve them using whatever technique (Integrating
+          factor always works).
+    \item Reconstruct the vector function $y$. The final solution will be $x(t) = Ty$, as we used before
+          in 2.
+\end{enumerate}
+\section{More Powerful Techniques}
+\subsection{Power Series}
+\subsubsection{Given}
+Anything. Seriously. Any ODE. We can get \textit{a} solution. Possible a disgusting one. For the
+sake of making the example easy, we'll assume a 2nd order equation of the form
+    \[ y'' + p(t)y' + q(t)y = g(t) \] 
+\subsubsection{Technique}
+Assume our solution is a \textbf{Power Series}. This is what makes this technique so \textbf{power}ful.
+Get it? No? Ok. 
+    \[ y = \sum_{n=0}^{\infty}a_n(x - x_0)^n \]
+Note that 
+\begin{align*}
+    y' &= \sum_{n=0}^{\infty}na_n(x - x_0)^{n-1} \\
+    y'' &= \sum_{n=0}^{\infty}n(n-1)a_n(x - x_0)^{n-2}
+\end{align*}
+Then note these 2 techniques to shift indices of summations and the power of the $(x-x_0)^n$ term.
+\begin{align}
+    \sum_{n=k}^{\infty} a_n (x - x_0)^{n-k} &= \sum_{n=k}^{\infty} a_{n+k} (x - x_0)^n \\
+    \sum_{n=0}^{\infty} a_n (x - x_0)^n = a_0 + a_1(x - x_0) + &... + a_k(x - x_0)^k + \sum_{n=k+1}^{\infty} a_n (x - x_0)^n
+\end{align}
+With these techniques and derivatives, we have one goal: rearrange the differential equation into the 
+form
+\[ a_0 + ... + a_k(x - x_0)^k + \sum_{n=k+1}^{\infty} F(a_n, a_{n+1}, ..., a_{n+l}) = 0 \]
+From which we learn that $a_0 = ... = a_k = 0$ and $F(a_n,..., a_{n+l}) = 0, \forall n > k$. From this
+second equation, we can derive a \textbf{Recurrence Relation} that relates $a_{n+l}$ to the previous 
+$l$ terms. $l$ will always be the order of our differential equation, and since our DE was linear, 
+$F$ will be linear as well. Thus we can rewrite our possible recurrence relation as
+    \[ a_{n+2} = A a_n + B a_{n+1} \]
+Given this, we can let $a_0$ and $a_1$ vary, analagous to our $C_1$ and $C_2$ in previous techniques,
+and solve for all higher $a_n$ through these. Sometimes we will be able to find a closed form solution
+for $a_n$, and in even rarer circumstances, we may be able to identify that as a taylor series of a
+function, in which case we can remove summations from our answer. But in general, our solution will
+look like what we originally guessed,
+    \[ y = \sum_{n=0}^{\infty}a_n(x - x_0)^n \]
+With some sort of recurrance relation for $a_n$. Yeah, this is pretty ugly. To sum up
+\begin{enumerate}
+    \item Substitute in a general power series.
+    \item Manipulate sums and powers until we get one large sum equal to zero.
+    \item Set all coefficients equal to 0. Obtain a recurrence relation for $a_n$
+    \item Attempt to find a closed source form for $a_n$ (this is tricky - have fun). Further, see 
+          if this is a taylor series for an elementary function. Even if not, we "solved" it, to
+          an arbitrary precision.
+\end{enumerate}
+\subsection{Laplace Transform}
+\subsubsection{Given}
+An ODE. That's really about it. One caveat is that the functions involved must have Laplace and 
+Inverse Laplace transforms that we know of. We'll just say it looks like
+    \[ \sum_{i=0}^n a_i(t)y^{(i)}= g(t) \]
+Yeah. That general.
+\subsubsection{Technique}
+We define the Laplace Transform of a function as
+\[ \mathscr{L}\{f(x)\} = \int_{0}^{\infty} e^{-st}f(t)dt \]
+Note that it's linear: that
+\[ \mathscr{L}\{af(x) + bg(x)\} = a\mathscr{L}\{f(x)\} + b\mathscr{L}\{g(x)\} \]
+Most importantly, if we evaluate this for a derivative,
+\begin{align*}
+    \mathscr{L}\{f'(x)\} &= \int_{0}^{\infty} e^{st}f'(t)dt  \\
+    \mathscr{L}\{f'(x)\} &=  \left[ e^{-st}f(t)\right]_0^{\infty} -\left(- s\int_0^{\infty} e^{-st}f(t)dt \right)  \\
+    \mathscr{L}\{f'(x)\} &=   -f(0) + s\int_0^{\infty} e^{-st}f(t)dt  \\
+    \mathscr{L}\{f'(x)\} &=   s\mathscr{L}\{f(x)\} - f(0)
+\end{align*}
+With $f(0)$ and $f'(0)$ either being arbitrary constants of the general solution, or initial conditions.
+
+Applying this further
+\[ \mathscr{L}\{f^{(n)}\} = s^n\mathscr{L}\{f(x)\} - \sum_{i=0}^{n} s^{n-i-1}f^{(i)}(0) \]
+But we probably don't want to use this since it's so ugly.
+
+Now the amazing thing is that this transforms differential equations into algebraic equations. That means that
+given any differential equation, we can get some algebraic equation we can solve for $\mathscr{L}\{y\}$. 
+Transforming something merely requires an indefinite integral. however, the inverse transform $\mathscr{L}^{-1}$
+is a lot more difficult to compute. For that reason, we typically have look-up tables to transform 
+$\mathscr{L}\{y\}$ back into $y$.
+
+To summarize the technique:
+\begin{enumerate}
+    \item Apply the Laplace Transform to both sides of the DE.
+    \item Solve for $\mathscr{L}\{y\}$ algebraically.
+    \item Manipulate the RHS until we can use a lookup table to apply the inverse transform (typically partial
+          fractions).
+\end{enumerate}
+AND WE'RE DONE HERE FAM.
+\end{document}

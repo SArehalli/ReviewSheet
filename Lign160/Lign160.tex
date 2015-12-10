@@ -1,0 +1,456 @@
+\documentclass[11pt]{article}
+\title{Lign 160: Pragmatics}
+\author{Suhas Arehalli}
+
+%\usepackage[margin=1in]{geometry}
+\usepackage{gb4e}
+\begin{document}
+\maketitle
+
+\section{Implicature}
+A Key distinction is made between what is \textbf{said} and what is \textbf{meant}. What is said is 
+truth-conditional, and is the domain of \textbf{semantics}. What is meant is not truth-conditional,
+and is what we study in \textbf{pragmatics}. 
+
+One of these inferences is that of \textit{Implicature}. First let's discuss \textbf{Grice's Cooperative 
+Principle}. 
+\subsection{Grice's Maxims}
+\begin{description}
+    \item[Quantity] Concerning the amount of information presented: 
+        \begin{enumerate}
+            \item Be as informative as the conversation requires. 
+            \item Don't be more informative than required.
+        \end{enumerate}
+    \item[Quality] Concerning the quality of information presented:
+        \begin{enumerate}
+            \item Don't say what you believe to be false
+            \item Don't say that for which you lack evidence
+        \end{enumerate}
+    \item[Relevance] Be relevant (to the conversation at hand)
+    \item[Manner] Be...
+        \begin{enumerate}
+            \item unobscure - avoid obscure language
+            \item unambiguous - use the most clear language possible
+            \item brief - prefer shorter phrasing
+            \item orderly - if there is a semantic ordering to items, order them syntactically
+        \end{enumerate}
+\end{description}
+
+Grice's formulation of implicature is derived directly from these rules. We begin with the assumption that
+all interlocutors naturally follow these maxims of conversation. Thus, given an utterance, we can apply the 
+maxims in "reverse" to license an inference, which we call an \textit{implicature}.
+
+For example, \textbf{Scalar Implicatures} are licensed using \textit{Quantity 1}. These are formed when a
+speaker uses a term that belongs in a \textbf{Horn Scale}. A Horn Scale, denoted as $<w_1,...,w_n>$, is a 
+sequence of words where
+\begin{enumerate}
+    \item For a sentence frame $A$, $A(w_i)$ entails $A(w_{i+1})$ for all $1 < i < n$.
+    \item All $\{w_i\}$ are equally lexicalized (similar syntactic properties).
+    \item All $\{W_i\}$ are from the same semantic field (similar meaning).
+\end{enumerate}
+An item in a Horn Scale, as an extension of property 1, entail everything to their right, and, due to scalar
+implicature, implicate that everything to that item's left is \textbf{not} true.
+For example, consider the Horn Scale  
+\[<all, most, many, some>.\] 
+\par
+If I say \textit{"Many X are Y"}, that 
+entails that (1) some X are Y, and (2) that all X are \textit{not} Y and further that most X are \textit{not} 
+Y.
+
+We get scalar implicatures because Grice's Quantity 1 tells us that the utterance given is as informative as
+it can be (given the conversation's needs). If it were true that a stronger item in our Horn Scale could be 
+used (and given Horn Scale constraints 2 and 3, it can be swapped without disturbing syntactic properties), 
+it would be more informative to use those, so we can infer, as the listener, that the speaker would have
+used them, but was unable to because they were false, leading to scalar implicature.
+
+For each of the maxims, we can do four things, which each license their own kind of implicatures. 
+\begin{description}
+    \item[1. Observe] Play by the rules, and follow the maxims. From this we can just reason backwards, as in
+        the scalar implicature example.
+    \item[2. Violate] Ignore maxims with the intention of decieving the listener. This is lying, etc. We usually
+        don't care about these instances, since most speakers are cooperative.
+    \item[3. Flout] Ignore maxims with the intention of creating a different inference on the part of the 
+        listener. Here, the we as the listener acknowledge that the utterance does not literally follow the
+        maxims, so we ask what nonliteral interpretation of the utterance would allow it to follow the maxims.
+    \item[4. Opt Out] Explicitly announce that your utterance does not follow the maxims, and that no 
+        inferences should be inferred.
+\end{description}
+
+We can test to see if it's an implicature by looking for several properties that all implicatures carry.
+\begin{description}
+    \item[Cancellation] Adding a statement that negates the inference should not be contradictory. \\
+        i.e. Maria washed the car and painted the wall. The wall had to be done before sundown, so she did
+        that first. The implicature is that she washed the car first, but is cancelled by the second 
+        sentence.
+    \item[Reinforcement] Adding a statement that asserts the inference should not be redundant. \\
+        i.e. Many, but not all, students will pass the class. The implicature is that not all students
+        will pass, and that is reinforced by the "but not all" clause.
+    \item[Suspension] You should be able to assert that you do not know anything about the inference. \\
+        i.e. She painted the house a light red. It may have been pink. The implicature is that the 
+        color was not pink (light red is both longer and more obscure than pink), but that is 
+        suspended when the speaker explains that they aren't sure.
+\end{description}
+
+Implicatures can belong to one of 2 classes:
+\begin{description}
+    \item[Generalized implicatures] Those in which context is not needed to form the implicature, but can 
+        cancel it. \\
+        i.e. Scalar implicatures, things attached to linguistic form.
+    \item[Particularized implicatures] Those in which specific contexts allow the implicatures to be formed. \\
+        i.e. "It was Christmas Eve. Della counted \$1.87. She flopped onto the couch and howled." The 
+        implicature that she can't afford a gift and is frustrated emerges from trying to reinterpret the 
+        sentences with regard to relevance, and is quite dependent on the context. Changing "Christmas Eve"
+        to "A day after payday" changes the inference completely.
+\end{description}
+
+There are also Neo-Gricean accounts of implicature that streamline the maxims. Here is Horn's
+\begin{description}
+    \item[Q Principle] Say as much as you can.
+    \item[R Principle] Say no more than you need.
+\end{description}
+
+This is based on \textbf{Zipf's Division of Pragmatic Labor}, which states that the 2 competing forces in
+language are the listener's need to understand what is being conveyed, and the speaker's preference for
+saying as little as they can get away with. These are directly encoded into these maxims.
+
+We draw \textbf{Q Implicatures} when a speaker chooses to say something unconventional or marked, or rather
+\textit{not} say something canonical and unmarked. In this case, we assume that the canonical statement is
+simply not true, because if it was, they would have said it was true. For example, Scalar implicatures are
+Q implicatures. If the stronger form was true, they would have said it.
+
+We draw \textbf{R Implicature} when a speaker chooses to use the canonical and unmarked phrasing, and infer
+that anything unsaid follows from the canonical situation. For example, John was able to fix the broken hinge
+is a canonical phrasing, and the canonical situation is that John actually fixed the hinge For example, 
+John was able to fix the broken hinge is a canonical phrasing, and the canonical situation is that John 
+actually fixed the hinge.
+
+\section{Reference}
+
+A \textbf{referring expression} is a linguistic form that corresponds to some discourse entity and brings 
+it to mind for the listener.
+
+The most basic example of reference is \textbf{anaphora}, the use of an expression that references a 
+previously occurring discourse entity. Note that anaphora is \textbf{NOT} text substitution. Split 
+antecedents ("X does A, and Y does B. They do C") make this unlikely, and inferred referents ("John bled so
+much it bled though his shirt") make it impossible. 
+Now, there are several forms of reference, and according to Gundel et al, each of them has an associated 
+cognitive state that is required for that form to be used. They forms and their associated states are: \\
+\begin{tabular}{c|c|p{4cm}}
+Indefinite a & Type Identifiable & Just a member of a class of objects, not special \\
+Indefinite this & Referential & Unknown to listener, but a specific member of it's class, may be referenced again\\
+Definite the & Uniquely Identifiable & A uniquely identifiable based on the nominal\\
+Familiar that & Familiar & Known to the listener\\
+Demonstrative this, that & Activated & Known to listener and mentioned previously \\
+Pronouns & In Focus & Known and highly salient in this conversation\\
+\end{tabular}
+
+Typically, these form an implicational hierarchy, with stronger cognitive statuses entailing the weaker. Thus
+all forms can be used to refer to entities that are in a stronger state. However, the only case in which this
+actually happens is with "the," which commonly refer to referents with stronger cognitive statuses than
+uniquely identifiable. Gundel et al appeal to Grice's Quantity, but these appeals are mostly unsatisfactory, 
+as the cognitive statuses are not semantically similar enough to from a Horn Scale.
+
+Now let's discuss some complexities of a and the NPs
+\begin{description}
+    \item[Inferrables] Listeners can accomodate the existence of certain referents based on certain other
+        referents in the discourse that could allow for  the existence of the inferred referent. If that 
+        made no sense, that's ok. It didn't make sense to me either. Take this example: I bought a car
+        and the engine was super noisy. Which engine is "the engine"? The one supposed to exist based
+        on the referring expression "a car".
+    \item[Weak Definites] We can say "The corner of the intersection" when there are 4 corners at every
+        intersection and "He went to the the hospital" even though you were never told which hospital.
+    \item[Metonymy] Refering to something by one of it's parts or something related to it. "I'm parked
+        out back" and "The university would never approve that."
+    \item[Conversationally Relevant Description] "A jogger was hit by a car" vs "the rapper was hit by a
+        car"
+\end{description}
+
+And weird stuff related to pronouns and demonstrative this/that:
+
+\begin{description}
+    \item[Cataphora] Anaphora in reverse: "According to his book, Dick Cheney..." is fine even though
+        the referent comes after the referring expression.
+    \item[Pronouns of Laziness] "The student who revised his paper did better than the one who handed it 
+        it in as is." 
+    \item[Anaphoric Islands] "Do parental reactions affect their children?" vs "Fritz is a cowboy. He 
+        says they can be hard to look after"
+    \item[Deixis] Expressions whose meaning depends on the surrounding context. "I'll buy you a donut
+        tomorrow" is meaningless if you don't know when it was said, who was speaking, or who they 
+        were talking to. 
+\end{description}
+
+\section{Presupposition}
+
+Some utterances can only be uttered if some proposition is true. That proposition is \textbf{presupposed}.
+
+Here are some examples.
+
+\begin{description}
+    \item[Definite Descriptions] "The dog ran" presupposes the existence of the dog.
+    \item[Factive Verbs] "He noticed that the donut was eaten" presupposes that the donut was eaten.
+    \item[Change of State Verbs] "He stopped doing drugs" presupposes that he wasdoing drugs previously.
+    \item[Iteratives] "She ate another donut" presupposes she ate a donut before.
+    \item[Clefts] "It was John who ate the donuts" presupposes someone ate the donuts, and "What caused
+        the riot was Andy's drinking" presupposes that something caused the riot.
+\end{description}
+
+The key property of presuppositions is that they cannot be cancelled like implicatures, and further that
+they can't be negated like entailments. A common test for a presupposition is \textbf{Invariance under 
+Negation}: test whether the proposition remains invariant under negation.
+
+For example, "The King of France is bald" presupposes a King of France exists, and negating the sentence creates
+"The King of France isn't bald" still presupposes the King of France exists. 
+
+Presuppositions can only be cancelled using \textbf{Metalinguistic Negation}. For example, the sentence 
+"Andy regrets doing his PhD" presupposes he did a PhD. To metalinguistically negate this, we create a
+sentence like "Andy doesn't regret doing his PhD, because he never did one." They negate the presupposition
+by explicitly claiming it's false, and can only be used felicitously in certain situations (namely, 
+correcting someone else's false presupposition). Other presuppositions can be metalinguistically negated
+in more odd ways: "Sue cried before finishing her PhD" vs "Sue died before finishing her PhD."
+
+Presuppositions can, however, be suspended: "Norman stopped doing crack, if, in fact, he ever did to begin
+with."
+
+Now how do presuppositions interact with complex sentences?
+\subsection{Presupposition Projection}
+\begin{description}
+    \item[Holes] Sentence constructions that allow presuppositions from one clause to project to the full
+        sentence while entailments do not project. \\
+        i.e. "The two theives were caught again last night" entails that they were caught last night and 
+        presupposes that they've been caught before. "If they two thieves were caught again last night, X"
+        presupposes that the two theives were caught before, but doesn't entail that they were caught 
+        last night, so the "If X, then..." construction is a hole.
+    \item[Plugs] Plugs are constructions that work the other way around. Presuppositions do not project
+        and entailments do.\\
+        i.e. "Nixon regrets not knowing his subordinates broke the law" presupposes that Nixon didn't 
+        know, while "Nixon announced he regrets not knowing his subordinates broke the law" doesn't.
+    \item[Filters] Holes and plugs are usually case specific. The constructions are rarely consistent.
+        Conditionals and disjunctions follow certain rules, however. According to Kartunnen (1973),
+        \\\\
+        Given a sentence "$p$ then $q$" the presupposition of the parts will project unless $q$ 
+        presupposes $r$ and $p$ entails $r$ (the presupposition in $q$ is already justified by
+        the conditional).
+        \\\\
+        Given a sentence "$p$ or $q$" the presupposition of the parts will project unless
+        $q$ presupposes $r$ and $\neg p$ entails $r$. (disjunctions "$p$ or $q$" are equivalent
+        to "if $\neg p$, $q$, and then follow above).
+\end{description}
+
+Finally, presuppositions must be in the common ground to be inferred. However, if the presupposition
+is reasonable, listeners can \textbf{accomodate} the presupposition, and assume it was in common ground
+even if it wasn't.
+
+\section{Information Structure}
+\par
+In all languages, we have numerous syntactic forms we can use to describe the same proposition. Why?
+because each of them conveys something more than the proposition - namely, the structure of the 
+information within the proposition. Because of this, certain constructions are felicitous when 
+others aren't even though they all express the same proposition. For example,
+
+\begin{exe}
+    \ex Who bought the donuts?
+    \ex Jason bought them
+    \ex \# \textit{It was the donuts that Jason bought.}
+\end{exe}
+
+The following are a few partitions of the information that syntactic forms create:
+
+\begin{description}
+    \item[Given-New] It is typically more felicitous tp choose syntactic constructions that put Given 
+        information before New information.
+    \item[Focus-Presupposition] Syntactic forms separate propositions into a presupposition taking the
+        form of an open proposition and a Focus that fill the hole in the open proposition. The focus
+        is nearly always the syntactic constituent that recieves accent. For example, in
+
+        \begin{exe}
+            \ex JOHN broke the plate.
+            \ex It was the PLATE that John broke.
+        \end{exe}
+        In (1) "John" is the focus with "X broke the plate" the open proposition presupposed. In (2),
+        while the same proposition is expressed, "The plate" is the focus with "John broke X" being 
+        the presupposed open proposition.
+    \item[Question-Answer Congruence] Given an implicit or explicit Question Under Discussion, the 
+        focus must be a direct answer to the question. This explains the motivating example: The
+        QUD was "Who bought the donuts," and "Jason bought them" has Jason as the focus, while
+        "It was the donuts..." has the donuts as the focus. 
+\end{description}
+
+\section{Discourse Coherence}
+\par
+The motivating question of discourse coherence is what makes a discourse different from a group of
+statements? What relationships must they have?
+
+The answer is recursive. A sentence is a valid discourse. 2 discourses form a large discourse if 
+there is a \textbf{Coherence Relation} formed between them. There are 3 categories of these
+relations:
+
+
+\subsection{Cause-Effect Relations}
+Suppose we infer $P_1, P_2$ from discourses $S_1, S_2$. Then $S_1, S_2$ form a discourse if
+\begin{description}
+    \item[Result] $P_1 \rightarrow P_2$, "$P_1$, then $P_2$"
+    \item[Explanation] $P_2 \rightarrow P_1$, "$P_1$ because $P_2$"
+    \item[Violated Expectation] $P_1 \rightarrow \neg P_2$, "$P_1$, but still $P_2$"
+    \item[Denial of Preventer] $P_2 \rightarrow \neg P_1$, "$P_1$, even though $P_2$"
+\end{description}
+
+\subsection{Contiguity}
+Suppose we infer $P_1, P_2$ from discourses $S_1, S_2$. Then $S_1, S_2$ form a discourse if
+\begin{description}
+    \item[Occasion] It is reasonable to infer a change of the state of affairs from the final
+        state of $P_1$ to the initial state of $P_2$.
+\end{description}
+
+\subsection{Resemblance}
+\begin{description}
+    \item[Parallel] If we infer $p(a_1,...), p(b_1,...)$ from discourses $S_1, S_2$, for a common
+        open proposition $p$, then $S_1, S_2$ form a discourse.
+    \item[Contrast] Parallel, except that OP is negated. e.g., if we infer $p(a_1,...)$ and $\neg p(b_1,...)$
+    \item[Exemplification] Parallel, but $b_i$ is a member or subset of $a_i$. 
+    \item[Generalization] Parallel, but $a_i$ is a member or subset of $b_i$. Exemplification reversed.
+    \item[Exception] Contrast, but $b_i$ is a member of subset of $a_i$ or vice versa.
+    \item[Elaboration] infer $p(a_1,...)$ from both $S_1, S_2$. Multiple sentences describe the same 
+        eventuality.
+\end{description}
+
+We can derive these propositional statements from axioms we draw from world knowledge. For example, given
+\begin{exe}
+    \ex Andy is travelling to Philadelphia. He wants to visit familty.
+\end{exe}
+and the following world knowledge axioms
+\begin{enumerate}
+    \item If person X wants to do action A, it is reasonable that X does A.
+    \item If person X is going to visit people Y, X must go to the location of Y.
+\end{enumerate}
+Then it seems like we can use the Explanation relation to explain the coherence of (1). However, in order
+to do so, we must \textbf{accomodate} the inference that Andy's family lives in Philadelphia. Since, it
+is typically assumed that interlocutors form coherent discourses, barring any knowledge to the contrary,
+it is reasonable to accomodate that.
+
+This assumption of coherence is important, since it licenses pragmatic inferences and enrichments, similar
+to the way the assumption of cooperativity gives rise to implicatures. In fact, in some theories, pronoun
+resolution can be explained though these coherence inferences. For example, if we say,
+\begin{exe}
+    \ex Jason gave Rick candy. He hates sweets
+\end{exe}
+
+Then, if we adopt the axiom
+
+\begin{enumerate}
+    \item If person X hates Y, it is reasonable that X gives away Y.
+\end{enumerate}
+
+To arrive at coherence for the two sentences, we must further reason that X is Jason and X is "he", thus
+he refers to Jason. If we instead did this with the second sentence being "He loves sweets" and form the
+appropriate axiom, we'd find that he refers to Rick instead.
+
+\section{Speech Acts}
+When we speak, we perform action, sometimes more than merely saying something. Actions include
+\begin{enumerate}
+    \item Asserting something
+    \item Asking a question
+    \item Requesting something
+    \item Promising something
+    \item Ordering someone to do something
+    \item etc...
+\end{enumerate}
+Some special actions occur merely by saying they are true. These are called \textbf{performatives}.
+
+For example, saying "I name this boat Felicity" or a judge saying "I sentence you to death" makes the
+statement true by virtue of being said. You can test if a verb is a performative by modifying it with
+the adverb "hereby": i.e. I hereby dub thee Prince Andy. 
+
+However, note that I had to say that a judge said "I sentence you to death." \textbf{Performatives are only
+felicitous if the speaker has the authority to perform the action they attempt to perform.}
+
+The actions a speaker performs that are beyond saying a statement are called the \textbf{Illocutionary Act},
+as opposed to the \textbf{locutionary act} or saying the statement. Certain forms are canonically associated 
+with certain illocutionary actions. Declarative forms state things, Imperative forms request or demand things, 
+and interrogative forms ask questions. Using a form to conduct it's canonical action creates a \textbf{Direct 
+Speech Act}.
+
+However, you can sometimes use a statement to perform a noncanonical action. In these cases, you are 
+performing an indirect speech act. For example,
+\begin{exe}
+    \ex Can you get me a donut?
+\end{exe}
+Takes an interrogative form, and is cannonically supposed to ask a question. However, it typically functions
+as a request, and thus represents an indirect speech act. Searle proposes that indirect speech acts are a 
+form of conversational implicature: namely that if the locutionary and canonical illocutionary acts are not
+conversationally relevant, then the illocutionary act must the speech act that is the most relevant.
+
+\section{Dialogue Coherence}
+We discussed how monologues can be coherent with Coherence Relations, but what about dialogues? They 
+exhibit a few properties different than monologues. Namely, \textbf{Turn-Taking Behavior}. Basically
+\begin{enumerate}
+    \item The current speaker speaks.
+    \item When we reach a point where the speaker is finished, and they have not selected the next speaker
+        (by mentioning them), then any other speaker may take the next turn and restart.
+    \item If no new speaker takes the next turn, the current speaker may continue.
+\end{enumerate}
+
+Another property is \textbf{Grounding}. In dialogue, it is critical that all interlocutors establish common
+ground. Thus speakers require evidence that they have succeeded in performing their speech act, and that
+the information conveyed is in common ground. Grounding is the act of communicating that to the speaker.
+
+\begin{description}
+    \item[Positive Grounding] Acknowledgement that the speech act was successfully executed. It can range
+        from something as simple as maintaining eye-contact to repeating statements verbatim.
+    \item[Negative Grounding] Informing the speaker that they did not succeed, and communicating a 
+        \textit{request for repairs}. 
+    \item[Conversational Tracks] When a request for repairs is made, the topic of conversation becomes 
+        the communicative act that triggered that request rather than the topic previous to that request.
+        Clark proposes that that forms a new track of metacommunicative acts, which can nest further. 
+        Once the act on the previous track is repaired, we fall back to the previous track and continue.
+\end{description}
+Let's look at an example:
+\begin{exe}
+    \ex 1. A: Do you have anchovy donuts? \\
+        2. B: \textit{*mumble*} \\
+        3. A: What was that? \\
+        4. B: I said, anchovy? \\
+        5. A: Yeah, anchovy. \\
+        6. B: No, we don't 
+\end{exe}
+
+Track 1, about whether there are anchovy donuts, consists of only 1 and 6. Track 2, concerning A's speech act
+in 1, consists of 2 and 4. Track 3, concerning the speech act in 2, consists of 3 and 4.
+
+\subsection{Beliefs, Desires, and Intentions (BDI) Models}
+If someone asks a supermarket employee where they can buy freshly baked donuts, and the employee responds with
+"How many do you want," it seems odd from the view of pragmatics we've developed so far. In what way is the 
+response relevant to the conversation? 
+
+To understand this, we must understand the concept of Gricean Cooperation  more fundamentally. All of the maxims
+are understood in relation to the direction of the conversation, and the direction is shaped by the 
+intentions of the interlocutors. Thus we must not only consider what they said, but reason about why they said
+what they said. The customer's goal was presumably to purchase the baked donuts, and the employee, knowing the 
+donuts were not directly accessable to customers, reasons that the best way to satisfy that goal is to get the
+donuts themselves. However, in order to do that, they must know how many donuts to get for the customer, and
+asks to get that information.
+
+We formalize this notion by introducing \textbf{Plan-Based Action Schemas}. These consist of a set of 
+\textbf{preconditions}, which must be true before this action can be performed, \textbf{effects} which
+become true after the action is performed, and a series of steps that make up the \textbf{body} of the
+action.
+
+We first reason about an interlocutor's goals, and then find a schema that has that as an effect. Then 
+we work backwards trying to satisfy preconditions until we arrive at schemas with preconditions that
+are satisfied. Then execute the actions in reverse order, building up until the goal is satisfied. This
+process is \textbf{plan-based analysis} of dialogue using a \textbf{BDI model}
+
+Relevance and Quantity judgements as now formulated in terms of this model. For example, consider
+
+\begin{exe}
+    \ex Where is the nearest Krispy Kreme?
+    \ex Down the street.
+\end{exe}
+
+When the Krispy Kreme down the street is closed. While we would claim this violates the Relevance Maxim
+before, we can now formally say why. 
+
+One can easily reason that the speaker in (10) has the intention of purchasing donuts. Thus the speaker
+in (11) must produce a speech act that in some way furthers the progression towards that goal. However,
+while they answer truthfully, the speech act in (11) does not further the goal since the Krispy Kreme
+is closed. Thus, we claim it is infelicitous and violates the Maxim of Relevance.
+\end{document}
