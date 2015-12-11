@@ -371,32 +371,26 @@ No homogenous solutions needed!
 
 \subsubsection{Technique}
 Remember that given a matrix $A$ and an eigenbasis $\{\xi_1, ..., \xi_n\}$, we can construct a
-normalized Change of Basis matrix $T = \left[ \bar{\xi_1}, ..., \bar{\xi_n} \right]$, with 
-$\bar{\xi_i} = \frac{\xi_i}{|\xi_i|}$, or a normalized $\xi_i$. This matrix has the following 
-properties:
+normalized Change of Basis matrix $T = \left[ \xi_1, ..., \xi_n \right]$, with 
 \begin{align}
     T^{-1}AT &= D = \begin{bmatrix} 
                         \lambda_1 & 0 & \dots & \\
                         0 & \lambda_2 & \dots \\
                         \dots & \dots & \dots \\
-                    \end{bmatrix} \\
-                    T^{-1} &= T^T
+                    \end{bmatrix} 
 \end{align}
-(6) from being a COB matrix to an eigenbasis (a transformation called diagonalization), and (7) since
-we normalized it. 
-
 Given these properties, we can reduce a system of ODEs into a series of 1st order DEs. How? First
 let 
     \[ x = Ty \] 
 For some $y$. We then get
     \[ Ty' = ATy + g(t) \]
-Then we simply multiply on the left (because matrix multiplication order matters!) by $T^{-1} = T^T$
-    \[ y = T^{-1}ATy + T^{T}g(t) \]
+Then we simply multiply on the left (because matrix multiplication order matters!) by $T^{-1}$
+    \[ y = T^{-1}ATy + T^{-1}g(t) \]
 And, using (6) we get
-    \[ y = Dy + T^{T}g(t) \]
+    \[ y = Dy + T^{-1}g(t) \]
 Now, since $D$ is diagonal, we have a series of 1st order ODEs! Split the one matrix equation into
 it's component system, and the $i$th equation/row will only have 
-    \[y_i' = \lambda_i y_i + \left[ T^Tg(t) \right]_i \]  
+    \[y_i' = \lambda_i y_i + \left[ T^{-1}g(t) \right]_i \]  
 Using a method like the Integrating factor to solve each of these, we can obtain $y$, and can now reverse
 the transformation to get back the solution to our first equation, $x$. Our final solution will be
 \begin{align*}
@@ -407,10 +401,10 @@ To summarize
     \item Find the eigenvectors and the eigenbasis for $A$ (solving the characteristic equation and doing 
           row reduction is the simplest method)
     \item Construct $T$ by normalizing each eigenvector and making them the columns of $T$.
-    \item Let $x = Ty$, and multiply to the left by $T^T = T^{-1}$. Remember $T^{-1}AT = D$, the matrix
+    \item Let $x = Ty$, and multiply to the left by $T^{-1}$. Remember $T^{-1}AT = D$, the matrix
           with $D_{i,i} = \lambda_i$ and all else $0$. 
     \item Separate this into $n$ 1st order linear equations with the form 
-          $y_i' = \lambda_i y_i + \left[ T^Tg(t) \right]_i $. Solve them using whatever technique (Integrating
+            $y_i' = \lambda_i y_i + \left[ T^{-1}g(t) \right]_i $. Solve them using whatever technique (Integrating
           factor always works).
     \item Reconstruct the vector function $y$. The final solution will be $x(t) = Ty$, as we used before
           in 2.
