@@ -6,22 +6,6 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{mathrsfs}
-\newcount\colveccount
-\newcommand*\colvec[1]{
-    \global\colveccount#1
-    \begin{pmatrix}
-    \colvecnext
-    }
-    \def\colvecnext#1{
-    #1
-    \global\advance\colveccount-1
-    \ifnum\colveccount>0
-    \\
-    \expandafter\colvecnext
-    \else
-    \end{pmatrix}
-    \fi
-}
 
 \begin{document}
 \maketitle
@@ -46,17 +30,21 @@ Note that the right-hand side is just $\frac{d}{dt}[y \mu (t)]$
     y \mu(t) &= \int g(t)\mu (t)dt \\
     y &= \frac{\int g(t) \mu (t)dt}{\mu (t)}
 \end{align*}
+
+
 \subsection{Separable Equations}
 \subsubsection{Given}
-A separable 1st order differential equation of the form
+A 1st order differential equation of the form 
     \[ M(x) + N(y)\frac{dy}{dx} = 0 \]
+These are called \textbf{separable}.
 \subsubsection{Technique}
 Separate your variables
     \[ N(y)\frac{dy}{dx} = M(x) \]
 And integrate
     \[ \int N(y)dy = \int M(x)dx \]
 And then solve for y.
-\subsection{Autonomous Equations}
+
+
 \subsection{Exact Equations}
 \subsubsection{Given}
 A 1st order differential equation of the form
@@ -84,7 +72,7 @@ Which we can proceed to algebraically solve for y.
 \subsection{The Wronskian}
 In first order ODEs, we know there is only one solution to each Differential Equation (plus all of it's
 scalar multiples). With 2nd Order ODEs, we expect 2 linearly independent solutions. How do we determine
-if these solutions are independent? Buy calculating the Wronskian:
+if these solutions are independent? By calculating the Wronskian:
 \[
     W = det\begin{bmatrix}
             y_1  & y_2 \\  
@@ -92,7 +80,6 @@ if these solutions are independent? Buy calculating the Wronskian:
             \end{bmatrix}
 \]
 If $ W \neq 0 $, then the 2 solutions are linearly independent enough. 
-???END
 \subsection{Characteristic Equation }
 \subsubsection{Given}
 A homogenous 2nd order differential equation of the form 
@@ -112,8 +99,8 @@ on the kind of roots obtained, follow one of the techniques below:
 In this case, your solution is simply
     \[ y = C_1e^{r_1t} + C_2e^{r_2t} \]
 Why? If you followed along above, you see that we assumed that solutions would be of the form $y = e^{rt}$.
-However, by the Law of Superposition, since we have 2 solutions, every linear combination of the solutions
-is also a solution.
+However, since there are 2 solutions for that equations, by the Law of Superposition, every linear 
+combination of those solutions is also a solution.
 \subsubsection{Technique: Complex Roots}
 Here we can say that out solution is simply the same as above. However, we don't care about imaginary 
 solutions: The DE was real-valued, so so should our solution. Thus, we will inspect one solution (which
@@ -157,7 +144,7 @@ We're left with
     \[ \left[w'(t)y_1(t) + 2w(t)y_1'(t) \right] + p(t)\left[w(t)y_1(t)\right] = 0 \]
 And since $y_1(t)$ is known, we have a 1st order DE that we can solve using the previous methods, finding
 $w = v'(t)$, from which we can find $v(t) = \int w(t)dt$, which in turn lets us find $y_2(t) = v(t)y_1(t)$.
-\subsection{Mathod of Undetermined Coefficients}
+\subsection{Method of Undetermined Coefficients}
 \subsubsection{Given}
 A second order nonhomogenous ODE of the form
     \[ y'' + p(t)y' + q(t)y = g(t) \]
@@ -175,9 +162,9 @@ Then find $Y'(t), Y''(t)$ and substitute into the differential equation. The equ
 of equal terms, obtaining a system of linear equations which you can proceed to solve for the undetermined
 coefficients you got from "generalizing" when guessing $Y(t)$. Then our final solution will be
     \[ y = y_1(t) + y_2(t) + Y(t) \]
-Sometimes this will not work. In this case, we can casually multiply any $Ae^{Bt}$ terms by $t$ and try
-again, and if that doesn't work repeat. Don't ask me why this works. \textbf{TIP}: If something of the 
-form $Ae^{Bt}$ appears in the homogenous solution, multiply by t. If something of the form $Ate^{Bt}$ 
+Sometimes the system we find will have no solutions. In this case, we can multiply any $Ae^{Bt}$ terms 
+by $t$ and try again, and if that doesn't work repeat. Don't ask me why this works. \textbf{TIP}: If something 
+of the form $Ae^{Bt}$ appears in the homogenous solution, multiply by t. If something of the form $Ate^{Bt}$ 
 appears in the homogenous solution, multiply by t again. 
 To recap:
 \begin{enumerate}
@@ -193,7 +180,7 @@ To recap:
 A second order nonhomogenous ODE of the form
     \[ y'' + p(t)y' + q(t)y = g(t) \]
 with homogenous solutions $y_1(t)$ and $y_2(t)$ that satisfy
-    \[ y'' + p(t)y' + q(t)y = g(t) \]
+    \[ y'' + p(t)y' + q(t)y = 0 \]
 We could obtain these with the other homogenous 2nd order techniques discussed above. 
 \subsubsection{Technique}
 Again we begin by making an assumption about $Y(t)$: 
@@ -252,9 +239,16 @@ For normal use of this technique:
     \end{enumerate}
 Not actually that bad.
 \section{Systems of ODEs}
+\subsection{The Wronskian for Systems}
+Again we must ask ourselves the question: How do we know if we've found all of the solutions. 
+Again we answer by checking is $W \neq 0, \forall t$. How do we compute the Wronskian for 
+a system of equations? Since our solutions $y_1, ..., y_n$ are vector valued functions 
+$y_i: \mathbb{R} \rightarrow \mathbb{R}^n$, we say that
+\[ W(y_1, ..., y_n) = det \left[y_1, ..., y_n \right] \]
+In this case, we literally mean that our solutions are linearly independent over all $t$. 
 \subsection{Characteristic Equation}
 \subsubsection{Given}
-Given a system of $n$ linear ODEs of order $n$ with coefficients that can be written in the from
+Given a system of $n$ linear ODEs of order $n$ with coefficients that can be written in the form
 \[ x' = Ax \]
 With A being an $n$ x $n$ matrix and $x$ being a vector-valued functions $x: \mathbb{R} 
 \rightarrow \mathbb{R}^n$
@@ -267,7 +261,7 @@ Then we get
     \lambda \xi &= A \xi  
 \end{align*}
 Thus we discover that $\xi$ must be an eigenvector of $A$ with eigenvalue $\lambda$. To find the
-Eigenvalue, we must first find the roots of the characteristic polynomial of $A$, since
+eigenvalue, we must first find the roots of the characteristic polynomial of $A$, since
 \begin{align*}
     A \xi - \lambda \xi &= 0 \\
     (A - \lambda I) \xi &= 0 
@@ -335,12 +329,12 @@ x(t) = C_1\xi e^{\lambda t} + C_2(\xi te^{\lambda t} + \eta e^{\lambda t})
 To summarize:
 \begin{enumerate}
     \item Find eigenvalues of the matrix A, and determine that one of the roots is repeated.
-    \item Solve $(A - \lambda I)\eta = \xi$ to find eta.
+    \item Solve $(A - \lambda I)\eta = \xi$ to find $\eta$.
     \item The solution for that repeated eigenvalue is as given in (5).
 \end{enumerate}
 \subsection{Undetermined Coefficents}
 \subsubsection{Given}
-A Nonhomogenous 2nd order system of ODEs of the form
+A non-homogenous 2nd order system of ODEs of the form
 \begin{align*}
     x' = At + g(t) \\
 \end{align*}
@@ -412,7 +406,7 @@ To summarize
 \section{More Powerful Techniques}
 \subsection{Power Series}
 \subsubsection{Given}
-Anything. Seriously. Any ODE. We can get \textit{a} solution. Possible a disgusting one. For the
+Anything. Seriously. Any ODE. We can get \textit{a} solution. Possibly a disgusting one. For the
 sake of making the example easy, we'll assume a 2nd order equation of the form
     \[ y'' + p(t)y' + q(t)y = g(t) \] 
 \subsubsection{Technique}
@@ -434,14 +428,12 @@ form
 \[ a_0 + ... + a_k(x - x_0)^k + \sum_{n=k+1}^{\infty} F(a_n, a_{n+1}, ..., a_{n+l}) = 0 \]
 From which we learn that $a_0 = ... = a_k = 0$ and $F(a_n,..., a_{n+l}) = 0, \forall n > k$. From this
 second equation, we can derive a \textbf{Recurrence Relation} that relates $a_{n+l}$ to the previous 
-$l$ terms. $l$ will always be the order of our differential equation, and since our DE was linear, 
-$F$ will be linear as well. Thus we can rewrite our possible recurrence relation as
-    \[ a_{n+2} = A a_n + B a_{n+1} \]
-Given this, we can let $a_0$ and $a_1$ vary, analagous to our $C_1$ and $C_2$ in previous techniques,
-and solve for all higher $a_n$ through these. Sometimes we will be able to find a closed form solution
-for $a_n$, and in even rarer circumstances, we may be able to identify that as a taylor series of a
-function, in which case we can remove summations from our answer. But in general, our solution will
-look like what we originally guessed,
+$l$ terms. 
+We can always let $a_0$ and $a_1$ vary (since it's a 2nd order ODE), analagous to our $C_1$ and $C_2$ 
+in previous techniques, and solve for all higher $a_n$ through these. Sometimes we will be able to 
+find a closed form solution for $a_n$, and in even rarer circumstances, we may be able to identify that 
+as a taylor series of a function, in which case we can remove summations from our answer. But in general, 
+our solution will look like what we originally guessed,
     \[ y = \sum_{n=0}^{\infty}a_n(x - x_0)^n \]
 With some sort of recurrance relation for $a_n$. Yeah, this is pretty ugly. To sum up
 \begin{enumerate}
